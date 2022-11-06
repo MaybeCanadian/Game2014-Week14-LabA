@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
@@ -16,6 +17,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    public bool UseMobileInput = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,15 +31,47 @@ public class PlayerBehaviour : MonoBehaviour
         var hit = Physics2D.OverlapCircle(groundPoint.position, groundRadius, groundLayerMask);
         isGrounded = hit;
 
-        Move();
-        Jump();
+        Vector2 input = (UseMobileInput ? GetMobileInput() : GetKeyboardInput());
+
+        Move(input.x);
+        Jump(input.y);
     }
 
-    private void Move()
+    private Vector2 GetMobileInput()
     {
-        var x = Input.GetAxisRaw("Horizontal");
+        Vector2 input = new Vector2(0.0f, 0.0f);
 
+        if(Input.touches.Length > 0)
+        {
+            foreach (Touch touch in Input.touches)
+            {
+                if (touch.position.x < Screen.width / 4.0f)
+                {
+                    input.x = -1.0f;
+                }
+                else if (touch.position.x > 3.0f * Screen.width / 4.0f)
+                {
+                    input.x = 1.0f;
+                }
+                else
+                {
+                    input.y = 1.0f;
+                }
+            }
+        }
 
+        return input;
+    }
+
+    private Vector2 GetKeyboardInput()
+    {
+        Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Jump"));
+
+        return input;
+    }
+
+    private void Move(float x)
+    {
         if (x != 0.0f)
         {
             Flip(x);
@@ -48,10 +83,8 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    private void Jump()
-    {
-        var y = Input.GetAxis("Jump");
-        
+    private void Jump(float y)
+    {        
         if(isGrounded && y > 0.0f)
         {
             rb.AddForce(Vector2.up * verticalForce, ForceMode2D.Impulse);
