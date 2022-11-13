@@ -20,15 +20,23 @@ public class PlayerBehaviour : MonoBehaviour
     public Animator animator;
     public PlayerAnimationState playerAnimState;
 
+    [Header("Controls")]
+    public Joystick leftStick;
+    [Range(0.0f, 1.0f)]
+    public float verticalThreshold;
+
     private Rigidbody2D rb;
 
-    public bool UseMobileInput = false;
+    private bool UseMobileInput = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        UseMobileInput = Application.isMobilePlatform;
+
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        leftStick = (UseMobileInput) ? GameObject.Find("Left Stick").GetComponent<Joystick>() : null;
     }
 
     // Update is called once per frame
@@ -46,28 +54,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private Vector2 GetMobileInput()
     {
-        Vector2 input = new Vector2(0.0f, 0.0f);
-
-        if(Input.touches.Length > 0)
-        {
-            foreach (Touch touch in Input.touches)
-            {
-                if (touch.position.x < Screen.width / 4.0f)
-                {
-                    input.x = -1.0f;
-                }
-                else if (touch.position.x > 3.0f * Screen.width / 4.0f)
-                {
-                    input.x = 1.0f;
-                }
-                else
-                {
-                    input.y = 1.0f;
-                }
-            }
-        }
-
-        return input;
+        return new Vector2(leftStick.Horizontal, leftStick.Vertical);
     }
 
     private Vector2 GetKeyboardInput()
@@ -99,7 +86,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Jump(float y)
     {        
-        if(isGrounded && y > 0.0f)
+        if(isGrounded && y > verticalThreshold)
         {
             rb.AddForce(Vector2.up * verticalForce, ForceMode2D.Impulse);
         }
