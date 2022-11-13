@@ -2713,7 +2713,7 @@ Animator:
   m_GameObject: {fileID: 1059210652}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 19962921d31c7f74ea8b3a5cb89b74cd, type: 2}
+  m_Controller: {fileID: 9100000, guid: 48dfb84406a82cc42af6eaf8283cc5e4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2850,7 +2850,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   isGrounded: 0
-  UseMobileInput: 1
+  animator: {fileID: 0}
+  playerAnimState: 0
+  UseMobileInput: 0
 --- !u!1 &1062410832
 GameObject:
   m_ObjectHideFlags: 0
