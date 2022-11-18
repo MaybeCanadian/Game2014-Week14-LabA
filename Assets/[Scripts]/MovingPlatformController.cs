@@ -5,7 +5,6 @@ using UnityEngine;
 public class MovingPlatformController : MonoBehaviour
 {
     public PlatformDirection direction;
-    private Vector2 startPosition;
 
     [Header("Movement Properties")]
     [Range(1.0f, 20.0f)]
@@ -16,9 +15,57 @@ public class MovingPlatformController : MonoBehaviour
     public float verticalRange = 8.0f;
     [Range(1.0f, 20.0f)]
     public float verticalSpeed = 3.0f;
+    [Range(0.001f, 0.1f)]
+    public float customSpeedFactor = 0.3f;
+
+    [Header("PathPoints")]
+    public List<Transform> pathPoints;
+    private Vector2 startPosition;
+    private Vector2 destinationPoint;
+    private float timer;
+    private int currentPathIndex;
+
+    private List<Vector2> pathList;
     void Start()
     {
+        timer = 0.0f;
+        currentPathIndex = 0;
         startPosition = transform.position;
+        pathList = new List<Vector2>();
+        foreach(Transform pathPoint in pathPoints)
+        {
+            Vector2 point = pathPoint.position;
+
+            pathList.Add(point);
+        }
+        pathList.Add(transform.position);
+
+        destinationPoint = pathList[currentPathIndex];
+    }
+
+    private void FixedUpdate()
+    {
+        if(direction == PlatformDirection.CUSTOM)
+        {
+            if (timer <= 1.0f)
+            {
+                timer += customSpeedFactor;
+            }
+            else if (timer >= 1.0f)
+            {
+                timer = 0.0f;
+
+                currentPathIndex++;
+
+                if (currentPathIndex >= pathList.Count)
+                {
+                    currentPathIndex = 0;
+                }
+
+                startPosition = transform.position;
+                destinationPoint = pathList[currentPathIndex];
+            }
+        }
     }
 
     // Update is called once per frame
@@ -75,6 +122,6 @@ public class MovingPlatformController : MonoBehaviour
 
     private void MoveCustom()
     {
-
+        transform.position = Vector2.Lerp(startPosition, destinationPoint, timer);
     }
 }
