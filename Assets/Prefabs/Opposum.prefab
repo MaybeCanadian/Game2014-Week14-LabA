@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 3231562741769237450}
   m_Layer: 9
   m_Name: Opposum
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,7 +59,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3231562741769237440}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 58.08, y: 6.11, z: -31.760233}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -265,13 +265,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76e1083f4a7180e4f9f53aee3767ca18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderName: {fileID: 0}
   collidionLayerMask:
     serializedVersion: 2
     m_Bits: 456
   playerDetected: 0
   lineOfSight: 0
-  playerTransform: {fileID: 0}
   playerDirection: 0
   enemyDirection: {x: 0, y: 0}
   playerDetectionVector: {x: 0, y: 0}

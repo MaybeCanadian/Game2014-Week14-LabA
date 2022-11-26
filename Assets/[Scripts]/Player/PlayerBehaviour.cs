@@ -20,6 +20,12 @@ public class PlayerBehaviour : MonoBehaviour
     public Animator animator;
     public PlayerAnimationState playerAnimState;
 
+    [Header("Health System")]
+    public HealthBarController health;
+    public LifeCounterScript life;
+    public DeathPlaneController deathPlane;
+    // add life counter
+
     [Header("Controls")]
     public Joystick leftStick;
     [Range(0.0f, 1.0f)]
@@ -36,7 +42,24 @@ public class PlayerBehaviour : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        health = FindObjectOfType<PlayerHealth>().GetComponent<HealthBarController>();
+        life = FindObjectOfType<LifeCounterScript>();
+        deathPlane = FindObjectOfType<DeathPlaneController>();
         leftStick = (UseMobileInput) ? GameObject.Find("Left Stick").GetComponent<Joystick>() : null;
+    }
+
+    private void Update()
+    {
+        if(health.value <= 0)
+        {
+            life.LoseLife();
+
+            health.ResetHealth();
+
+            deathPlane.ReSpawn(gameObject);
+        }
+
+        //out of lives be sad, game ends
     }
 
     // Update is called once per frame
@@ -119,5 +142,15 @@ public class PlayerBehaviour : MonoBehaviour
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(groundPoint.position, groundRadius);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            health.TakeDamage(20);
+
+            //play sound effects
+        }
     }
 }
