@@ -59,7 +59,12 @@ public class PlayerBehaviour : MonoBehaviour
             deathPlane.ReSpawn(gameObject);
         }
 
-        //out of lives be sad, game ends
+        if(life.value <= 0)
+        {
+            SoundManager.instance.PlaySoundFX(Sound.DEATH, Channel.PLAYER_DEATHFX);
+        }
+
+        
     }
 
     // Update is called once per frame
@@ -111,6 +116,7 @@ public class PlayerBehaviour : MonoBehaviour
     {        
         if(isGrounded && y > verticalThreshold)
         {
+            SoundManager.instance.PlaySoundFX(Sound.JUMP, Channel.PLAYER_SOUNDFX);
             rb.AddForce(Vector2.up * verticalForce, ForceMode2D.Impulse);
         }
     }
@@ -150,7 +156,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             health.TakeDamage(20);
 
-            //play sound effects
+            SoundManager.instance.PlaySoundFX(Sound.HURT, Channel.PLAYER_HURTFX);
         }
     }
 }

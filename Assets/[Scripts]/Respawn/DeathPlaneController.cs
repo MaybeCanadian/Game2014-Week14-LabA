@@ -16,7 +16,13 @@ public class DeathPlaneController : MonoBehaviour
 
             if(player.life.value > 0)
             {
+                SoundManager.instance.PlaySoundFX(Sound.HURT, Channel.PLAYER_HURTFX);
                 ReSpawn(player.gameObject);
+            }
+            else
+            {
+                player.gameObject.SetActive(false);
+                SoundManager.instance.PlaySoundFX(Sound.DEATH, Channel.PLAYER_DEATHFX);
             }
         }
     }
