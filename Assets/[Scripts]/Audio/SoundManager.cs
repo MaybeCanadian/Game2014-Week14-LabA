@@ -33,6 +33,7 @@ public class SoundManager : MonoBehaviour
         audioClips.Add(Resources.Load<AudioClip>("Audio/Hurt-Sound"));
         audioClips.Add(Resources.Load<AudioClip>("Audio/Lose-Sound"));
         audioClips.Add(Resources.Load<AudioClip>("Audio/MainTheme"));
+        audioClips.Add(Resources.Load<AudioClip>("Audio/EndTheme"));
     }
 
     public void PlaySoundFX(Sound sound, Channel channel)
@@ -41,9 +42,9 @@ public class SoundManager : MonoBehaviour
         channels[(int)channel].Play();
     }
 
-    public void PlayMusic(float volume, bool loop)
+    public void PlayMusic(Sound music, float volume, bool loop)
     {
-        channels[(int)Channel.MUSIC].clip = audioClips[(int)Channel.MUSIC];
+        channels[(int)Channel.MUSIC].clip = audioClips[(int)music];
         channels[(int)Channel.MUSIC].volume = volume;
         channels[(int)Channel.MUSIC].loop = loop;
         channels[(int)Channel.MUSIC].Play();

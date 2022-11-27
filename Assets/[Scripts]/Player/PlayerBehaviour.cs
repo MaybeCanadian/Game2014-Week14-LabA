@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -52,18 +53,8 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if(health.value <= 0)
         {
-            life.LoseLife();
-
-            health.ResetHealth();
-
-            deathPlane.ReSpawn(gameObject);
+            Die();
         }
-
-        if(life.value <= 0)
-        {
-            SoundManager.instance.PlaySoundFX(Sound.DEATH, Channel.PLAYER_DEATHFX);
-        }
-
         
     }
 
@@ -154,9 +145,30 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Enemy"))
         {
-            health.TakeDamage(20);
-
-            SoundManager.instance.PlaySoundFX(Sound.HURT, Channel.PLAYER_HURTFX);
+            TakeDamage(20);
         }
+    }
+
+    public void Die()
+    {
+        life.LoseLife();
+
+        if (life.value > 0)
+        {
+            health.ResetHealth();
+            deathPlane.ReSpawn(gameObject);
+            SoundManager.instance.PlaySoundFX(Sound.DEATH, Channel.PLAYER_DEATHFX);
+        }
+        else
+        {
+            SceneManager.LoadScene("EndScene");
+        }
+    }
+
+    public void TakeDamage(int value)
+    {
+        health.TakeDamage(value);
+
+        SoundManager.instance.PlaySoundFX(Sound.HURT, Channel.PLAYER_HURTFX);
     }
 }

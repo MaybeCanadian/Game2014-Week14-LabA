@@ -11,19 +11,8 @@ public class DeathPlaneController : MonoBehaviour
         if(collision.tag == "Player")
         {
             var player = collision.GetComponent<PlayerBehaviour>();
-            player.life.LoseLife();
-            player.health.ResetHealth();
-
-            if(player.life.value > 0)
-            {
-                SoundManager.instance.PlaySoundFX(Sound.HURT, Channel.PLAYER_HURTFX);
-                ReSpawn(player.gameObject);
-            }
-            else
-            {
-                player.gameObject.SetActive(false);
-                SoundManager.instance.PlaySoundFX(Sound.DEATH, Channel.PLAYER_DEATHFX);
-            }
+            
+            player?.Die();
         }
     }
 
