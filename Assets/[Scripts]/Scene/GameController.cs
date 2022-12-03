@@ -7,12 +7,15 @@ public class GameController : MonoBehaviour
 
     public GameObject OnScreenControls;
 
+    public bool enableMusic = true;
+
     private void Awake()
     {
         OnScreenControls = GameObject.Find("OnScreenControls");
 
         OnScreenControls.SetActive(Application.isMobilePlatform);
 
-        SoundManager.instance.PlayMusic(Sound.MAINMUSIC, 0.25f, true);
+        if(enableMusic)
+            SoundManager.instance.PlayMusic(Sound.MAINMUSIC, 0.25f, true);
     }
 }
