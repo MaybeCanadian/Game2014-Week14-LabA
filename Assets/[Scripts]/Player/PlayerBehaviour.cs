@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -24,6 +25,14 @@ public class PlayerBehaviour : MonoBehaviour
     [Header("Dust Trail Effect")]
     public ParticleSystem dustTrail;
     public Color dustTrailColor;
+
+    [Header("Screen Shake Properties")]
+    public CinemachineVirtualCamera playerCam;
+    public CinemachineBasicMultiChannelPerlin perlin;
+    public float shakeIntensity;
+    public float shakeDuration;
+    public float shakeTimer;
+    public bool isCameraShaking;
 
     [Header("Health System")]
     public HealthBarController health;
@@ -53,6 +62,15 @@ public class PlayerBehaviour : MonoBehaviour
         leftStick = (UseMobileInput) ? GameObject.Find("Left Stick").GetComponent<Joystick>() : null;
 
         dustTrail = GetComponentInChildren<ParticleSystem>();
+
+        playerCam = GameObject.Find("PlayerCamera").GetComponent<CinemachineVirtualCamera>();
+
+        perlin = playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+        isCameraShaking = false;
+        shakeTimer = shakeDuration;
+        perlin.m_AmplitudeGain = 0.0f;
+
     }
 
     private void Update()
@@ -75,6 +93,19 @@ public class PlayerBehaviour : MonoBehaviour
         Move(input.x);
         Jump(input.y);
         AirCheck();
+
+        //camera shake control
+
+        if(isCameraShaking)
+        {
+            shakeTimer -= Time.fixedDeltaTime;
+            if(shakeTimer <= 0)
+            {
+                perlin.m_AmplitudeGain = 0;
+                shakeTimer = shakeDuration;
+                isCameraShaking = false;
+            }
+        }
     }
 
     private Vector2 GetMobileInput()
@@ -157,6 +188,18 @@ public class PlayerBehaviour : MonoBehaviour
         if(collision.gameObject.CompareTag("Enemy"))
         {
             TakeDamage(20);
+
+            ShakeCamera();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Hazard"))
+        {
+            health.TakeDamage(30);
+
+            ShakeCamera();
         }
     }
 
@@ -187,5 +230,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         dustTrail.GetComponent<Renderer>().material.SetColor("_Color", dustTrailColor);
         dustTrail.Play();
+    }
+
+    private void ShakeCamera()
+    {
+        perlin.m_AmplitudeGain = shakeIntensity;
+        isCameraShaking = true;
     }
 }
