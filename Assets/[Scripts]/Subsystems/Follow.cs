@@ -21,8 +21,9 @@ public class Follow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector2(
+        transform.position = new Vector3(
             (target.x) ? target.transform.position.x + target.offSet.x : transform.position.x,
-            (target.y) ? target.transform.position.y + target.offSet.y : transform.position.y);
+            (target.y) ? target.transform.position.y + target.offSet.y : transform.position.y,
+            transform.position.z);
     }
 }
