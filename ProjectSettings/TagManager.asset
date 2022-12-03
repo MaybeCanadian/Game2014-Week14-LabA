@@ -16,7 +16,7 @@ TagManager:
   - Platform
   - Player
   - Enemy
-  - 
+  - Marker
   - 
   - 
   - 
@@ -53,6 +53,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3458106941
+    locked: 0
+  - name: Marker
+    uniqueID: 3882949611
     locked: 0
   - name: UI
     uniqueID: 184050419
