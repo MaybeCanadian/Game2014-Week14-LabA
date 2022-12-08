@@ -149,7 +149,7 @@ public class PlayerBehaviour : MonoBehaviour
     {        
         if(isGrounded && y > verticalThreshold)
         {
-            SoundManager.instance.PlaySoundFX(Sound.JUMP, Channel.PLAYER_SOUNDFX);
+            SoundManager.instance.PlaySoundFX(Sound.JUMP, 1.0f);
             rb.AddForce(Vector2.up * verticalForce, ForceMode2D.Impulse);
         }
     }
@@ -211,7 +211,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             health.ResetHealth();
             deathPlane.ReSpawn(gameObject);
-            SoundManager.instance.PlaySoundFX(Sound.DEATH, Channel.PLAYER_DEATHFX);
+            SoundManager.instance.PlaySoundFX(Sound.DEATH, 1.0f);
         }
         else
         {
@@ -223,7 +223,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         health.TakeDamage(value);
 
-        SoundManager.instance.PlaySoundFX(Sound.HURT, Channel.PLAYER_HURTFX);
+        SoundManager.instance.PlaySoundFX(Sound.HURT, 1.0f);
     }
 
     private void CreateDustTrail()

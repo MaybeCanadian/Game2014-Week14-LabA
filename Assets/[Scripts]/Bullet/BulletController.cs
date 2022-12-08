@@ -12,6 +12,7 @@ public class BulletController : MonoBehaviour
     public Vector2 rotationForce;
     public float lifeTime = 2.0f;
     public Vector3 Offset;
+    private BulletTypes type = BulletTypes.ACORN;
 
     private void Awake()
     {
@@ -43,8 +44,7 @@ public class BulletController : MonoBehaviour
     }
     private void Remove()
     {
-        if(gameObject.activeInHierarchy)
-            Destroy(gameObject);
+        BulletManager.instance.ReturnBullet(type, gameObject);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -8,7 +8,8 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
 
-    public List<AudioSource> channels;
+    public AudioSource FXChanel;
+    public AudioSource MusicChanel;
     public List<AudioClip> audioClips;
 
     // Start is called before the first frame update
@@ -21,7 +22,6 @@ public class SoundManager : MonoBehaviour
         else
         {
             instance = this;
-            channels = GetComponents<AudioSource>().ToList();
             audioClips = new List<AudioClip>();
             InitializeSoundFX();
         }
@@ -34,19 +34,19 @@ public class SoundManager : MonoBehaviour
         audioClips.Add(Resources.Load<AudioClip>("Audio/Lose-Sound"));
         audioClips.Add(Resources.Load<AudioClip>("Audio/MainTheme"));
         audioClips.Add(Resources.Load<AudioClip>("Audio/EndTheme"));
+        audioClips.Add(Resources.Load<AudioClip>("Audio/Fire-Sound"));
     }
 
-    public void PlaySoundFX(Sound sound, Channel channel)
+    public void PlaySoundFX(Sound sound, float relativeVolume)
     {
-        channels[(int)channel].clip = audioClips[(int)sound];
-        channels[(int)channel].Play();
+        FXChanel.PlayOneShot(audioClips[(int)sound]);
     }
 
     public void PlayMusic(Sound music, float volume, bool loop)
     {
-        channels[(int)Channel.MUSIC].clip = audioClips[(int)music];
-        channels[(int)Channel.MUSIC].volume = volume;
-        channels[(int)Channel.MUSIC].loop = loop;
-        channels[(int)Channel.MUSIC].Play();
+        MusicChanel.clip = audioClips[(int)music];
+        MusicChanel.volume = volume;
+        MusicChanel.loop = loop;
+        MusicChanel.Play();
     }
 }

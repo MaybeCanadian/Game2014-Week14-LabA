@@ -10,5 +10,6 @@ public enum Sound
     HURT,
     DEATH,
     MAINMUSIC,
-    ENDMUSIC
+    ENDMUSIC,
+    FIRE
 }
