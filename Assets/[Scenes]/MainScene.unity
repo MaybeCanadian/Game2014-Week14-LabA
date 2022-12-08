@@ -123,16 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!82 &21313577 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 5843341996120911124, guid: 23ee2c2be34758f4ea747b43fc0cf6a8, type: 3}
-  m_PrefabInstance: {fileID: 2473551241237063587}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &21313578 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 1932287342931896900, guid: 23ee2c2be34758f4ea747b43fc0cf6a8, type: 3}
-  m_PrefabInstance: {fileID: 2473551241237063587}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &61926246
 GameObject:
   m_ObjectHideFlags: 0
@@ -11105,22 +11095,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1932287342931896900, guid: 23ee2c2be34758f4ea747b43fc0cf6a8, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: -4681680163500891661, guid: 78e8a50f7300c8048827560252ece659, type: 2}
-    - target: {fileID: 4472248744749779201, guid: 23ee2c2be34758f4ea747b43fc0cf6a8, type: 3}
-      propertyPath: FXChanel
-      value: 
-      objectReference: {fileID: 21313578}
-    - target: {fileID: 4472248744749779201, guid: 23ee2c2be34758f4ea747b43fc0cf6a8, type: 3}
-      propertyPath: MusicChanel
-      value: 
-      objectReference: {fileID: 21313577}
-    - target: {fileID: 5843341996120911124, guid: 23ee2c2be34758f4ea747b43fc0cf6a8, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: -905191309739328317, guid: 78e8a50f7300c8048827560252ece659, type: 2}
     - target: {fileID: 8633507904663588874, guid: 23ee2c2be34758f4ea747b43fc0cf6a8, type: 3}
       propertyPath: m_Name
       value: Sound Manager
@@ -11169,9 +11143,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5175083929433258446, guid: 23ee2c2be34758f4ea747b43fc0cf6a8, type: 3}
-    - {fileID: 8821851862307273354, guid: 23ee2c2be34758f4ea747b43fc0cf6a8, type: 3}
+    m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 23ee2c2be34758f4ea747b43fc0cf6a8, type: 3}
 --- !u!1001 &2538383640457090342
@@ -11378,7 +11350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5181276312717496418, guid: 1a8c23bd5363fd34baddd8be1034b35d, type: 3}
       propertyPath: customSpeedFactor
-      value: 0.02
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 6604859290866425686, guid: 1a8c23bd5363fd34baddd8be1034b35d, type: 3}
       propertyPath: m_RootOrder

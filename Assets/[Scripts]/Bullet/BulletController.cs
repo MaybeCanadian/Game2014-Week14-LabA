@@ -20,11 +20,6 @@ public class BulletController : MonoBehaviour
         direction = (GameObject.FindWithTag("Player").transform.position + Offset) - transform.position;
         direction = direction.normalized;
     }
-
-    private void Start()
-    {
-        Activate();
-    }
     public void Activate()
     {
         Rotate();
